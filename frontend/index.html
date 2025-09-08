@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dashboard Tasks</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <style>
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fadeIn { animation: fadeIn 0.4s ease-out; }
+  </style>
+</head>
+<body class="bg-gray-900 dark:bg-gray-100 text-gray-100 dark:text-gray-900 min-h-screen flex flex-col transition-colors duration-300">
+
+  <!-- Header -->
+  <header class="p-6 border-b border-gray-800 dark:border-gray-300 bg-gray-950 dark:bg-gray-200 shadow-md flex justify-between items-center animate-fadeIn">
+    <div>
+      <h1 class="text-2xl font-bold text-indigo-400 dark:text-indigo-600">Dashboard Tasks</h1>
+      <p class="text-gray-400 dark:text-gray-600 text-sm">Tuany Fonseca  Microsserviços — Users & Tasks</p>
+    </div>
+    <button id="themeToggle" class="w-12 h-6 flex items-center bg-gray-700 dark:bg-gray-400 rounded-full p-1 transition duration-300 ease-in-out">
+      <div id="toggleCircle" class="bg-white w-4 h-4 rounded-full shadow-md transform transition duration-300 ease-in-out"></div>
+    </button>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1 p-6 animate-fadeIn transition-colors duration-300">
+
+    <!-- Filtros e formulário -->
+    <section class="flex flex-wrap gap-4 items-center mb-6">
+      <label for="userSelect" class="text-sm font-medium">Usuário:</label>
+      <select id="userSelect"
+        class="bg-gray-800 dark:bg-gray-200 dark:text-gray-900 text-gray-100 px-3 py-2 rounded-md border border-gray-700 dark:border-gray-400 focus:ring-2 focus:ring-indigo-500 transition duration-200 ease-in-out hover:border-indigo-500">
+      </select>
+
+      <form id="taskForm" class="flex gap-2 flex-1 max-w-lg">
+        <input id="taskInput" placeholder="Descrição da tarefa" required
+          class="flex-1 px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 border border-gray-700 dark:border-gray-400 text-gray-100 dark:text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200 ease-in-out hover:border-indigo-500" />
+        <input id="taskDate" placeholder="Selecione a data" required
+          class="px-3 py-2 rounded-md bg-gray-800 dark:bg-gray-200 border border-gray-700 dark:border-gray-400 text-gray-100 dark:text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200 ease-in-out hover:border-indigo-500 w-40">
+        <button type="submit"
+          class="px-4 py-2 rounded-md bg-indigo-600 hover:bg-indigo-500 font-medium shadow transition transform hover:scale-105">
+          ➕ Adicionar
+        </button>
+      </form>
+    </section>
+
+    <!-- Lista de tarefas -->
+    <section id="tasksContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></section>
+
+    <!-- Gráfico -->
+    <section class="mt-10">
+      <h2 class="text-lg font-semibold mb-4 text-indigo-400 dark:text-indigo-600">Tarefas por Usuário</h2>
+      <canvas id="tasksChart" class="w-full max-w-2xl"></canvas>
+    </section>
+  </main>
+
+  <footer class="p-4 text-center text-gray-500 dark:text-gray-600 text-sm border-t border-gray-800 dark:border-gray-300 animate-fadeIn">
+    © 2025 - Tuany Fonseca Microservices Dashboard
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="script.js"></script>
+  <script>
+    const body = document.body;
+    const themeToggle = document.getElementById("themeToggle");
+    const toggleCircle = document.getElementById("toggleCircle");
+
+    if (localStorage.theme === "light") body.classList.remove("dark");
+    else body.classList.add("dark");
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      if (body.classList.contains("dark")) localStorage.theme = "dark";
+      else localStorage.theme = "light";
+      updateChart();
+    });
+
+    if (!body.classList.contains("dark")) toggleCircle.classList.add("translate-x-6");
+  </script>
+</body>
+</html>
+
+
+
+
+
+

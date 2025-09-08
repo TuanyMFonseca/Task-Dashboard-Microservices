@@ -1,0 +1,19 @@
+{
+  "name": "tasks-dashboard-microservices",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:users": "npm --prefix users-api start",
+  "start:tasks": "npm --prefix tasks-api start",
+  "start:frontend": "npx serve frontend -p 8080",
+  "dev:all": "concurrently \"npm --prefix users-api run dev\" \"npm --prefix tasks-api run dev\" \"npx serve frontend -p 8080\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "serve": "^14.2.5"
+  }
+}
